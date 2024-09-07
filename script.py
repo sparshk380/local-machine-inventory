@@ -1,22 +1,23 @@
 #!/usr/bin/env python3
 import json
-import requests
+import urllib.request
+from urllib.error import URLError
 
 def get_public_ip():
     try:
-        response = requests.get('https://api.ipify.org')
-        return response.text
-    except:
+        with urllib.request.urlopen('https://api.ipify.org') as response:
+            return response.read().decode('utf-8')
+    except URLError:
         return None
 
 if __name__ == '__main__':
     ip = get_public_ip()
     if ip:
         inventory = {
-            "all": {
+            "local_machine": {
                 "hosts": [ip],
                 "vars": {
-                    "ansible_user": "ubuntu"
+                    "ansible_user": "your_username"
                 }
             },
             "_meta": {
@@ -28,6 +29,6 @@ if __name__ == '__main__':
             }
         }
     else:
-        inventory = {"all": {"hosts": []}, "_meta": {"hostvars": {}}}
+        inventory = {"local_machine": {"hosts": []}, "_meta": {"hostvars": {}}}
     
     print(json.dumps(inventory))
