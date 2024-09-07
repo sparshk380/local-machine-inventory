@@ -29,8 +29,8 @@ if __name__ == '__main__':
                 "hosts": [ip],
                 # Variables specific to this group
                 "vars": {
-                    # Example variable for Ansible user (replace "your_username" with the actual username)
-                    "ansible_user": "your_username"
+                    # Example variable for Ansible uSer
+                    "ansible_user": "ubuntu"
                 }
             },
             # Metadata about the inventory
